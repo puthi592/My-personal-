@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Name — Personal Space</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
+    :root {
+      --bg: #070914;
+      --panel: #0e1222;
+      --panel2: #12182b;
+      --text: #f3f7ff;
+      --muted: #9ca8c7;
+      --cyan: #55f6ff;
+      --purple: #9b7cff;
+      --pink: #ff62c7;
+      --green: #69ffb0;
+      --border: #27304c;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background:
+        radial-gradient(circle at 15% 10%, rgba(85,246,255,.12), transparent 25%),
+        radial-gradient(circle at 85% 20%, rgba(155,124,255,.12), transparent 25%),
+        linear-gradient(180deg, #070914, #090b16 60%, #060711);
+      color: var(--text);
+      font-family: "VT323", monospace;
+      font-size: 22px;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .14;
+      background-image:
+        linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 24px 24px;
+      mask-image: linear-gradient(to bottom, black, transparent 85%);
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(1050px, calc(100% - 32px));
+      margin: auto;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(12px);
+      background: rgba(7,9,20,.78);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-family: "Press Start 2P", monospace;
+      font-size: 14px;
+      color: var(--cyan);
+      text-shadow: 3px 3px 0 #26335c;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 19px;
+      transition: .2s;
+    }
+
+    .nav-links a:hover { color: var(--cyan); }
+
+    section { padding: 85px 0; }
+
+    .hero {
+      min-height: calc(100vh - 70px);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      position: relative;
+    }
+
+    .pixel-badge {
+      display: inline-block;
+      border: 2px solid var(--cyan);
+      padding: 9px 13px;
+      color: var(--cyan);
+      background: rgba(85,246,255,.06);
+      box-shadow: 5px 5px 0 rgba(85,246,255,.16);
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-family: "Press Start 2P", monospace;
+      font-size: clamp(30px, 6vw, 65px);
+      line-height: 1.35;
+      text-shadow: 5px 5px 0 #242c51;
+    }
+
+    h1 span {
+      color: var(--cyan);
+      text-shadow: 5px 5px 0 #174b55;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: 25px auto;
+      color: var(--muted);
+      font-size: 27px;
+      line-height: 1.15;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 13px 18px;
+      border: 2px solid var(--cyan);
+      background: var(--cyan);
+      color: #061018;
+      font-family: "Press Start 2P", monospace;
+      font-size: 11px;
+      box-shadow: 5px 5px 0 #263d55;
+      transition: .18s;
+    }
+
+    .btn:hover {
+      transform: translate(3px, 3px);
+      box-shadow: 2px 2px 0 #263d55;
+    }
+
+    .btn.alt {
+      background: transparent;
+      color: var(--cyan);
+    }
+
+    .section-title {
+      font-family: "Press Start 2P", monospace;
+      font-size: clamp(19px, 3vw, 28px);
+      margin-bottom: 34px;
+    }
+
+    .section-title::before {
+      content: "> ";
+      color: var(--pink);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: linear-gradient(145deg, rgba(18,24,43,.94), rgba(10,14,28,.94));
+      border: 2px solid var(--border);
+      padding: 25px;
+      box-shadow: 7px 7px 0 rgba(39,48,76,.5);
+      transition: .2s;
+    }
+
+    .card:hover {
+      border-color: var(--cyan);
+      transform: translateY(-4px);
+    }
+
+    .card h3 {
+      color: var(--cyan);
+      font-family: "Press Start 2P", monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+
+    .card p {
+      color: var(--muted);
+      line-height: 1.15;
+      font-size: 23px;
+    }
+
+    .skills {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 15px;
+    }
+
+    .skill {
+      border: 1px solid #394666;
+      padding: 7px 11px;
+      color: var(--green);
+      background: #0a1020;
+    }
+
+    .project {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project::after {
+      content: "PIXEL";
+      position: absolute;
+      right: -8px;
+      bottom: -12px;
+      font-family: "Press Start 2P";
+      font-size: 38px;
+      color: rgba(255,255,255,.025);
+    }
+
+    .project-number {
+      color: var(--pink);
+      font-family: "Press Start 2P";
+      font-size: 11px;
+      margin-bottom: 18px;
+    }
+
+    .contact-box {
+      text-align: center;
+      padding: 40px 25px;
+      border: 2px solid var(--purple);
+      background: rgba(155,124,255,.06);
+      box-shadow: 8px 8px 0 rgba(155,124,255,.18);
+    }
+
+    .contact-box p {
+      color: var(--muted);
+      margin: 15px auto 25px;
+      max-width: 650px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 25px 0;
+      color: var(--muted);
+      text-align: center;
+      font-size: 18px;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 9px;
+      height: 22px;
+      background: var(--cyan);
+      vertical-align: middle;
+      animation: blink .8s steps(2) infinite;
+    }
+
+    @keyframes blink { 50% { opacity: 0; } }
+
+    @media (max-width: 700px) {
+      .nav-inner { padding: 12px 0; align-items: flex-start; flex-direction: column; }
+      .nav-links { justify-content: flex-start; }
+      section { padding: 65px 0; }
+      .grid { grid-template-columns: 1fr; }
+      .hero { min-height: 80vh; }
+      .hero p { font-size: 23px; }
+      .logo { font-size: 11px; }
+    }
+  
+    /* ===== PREMIUM GLASS UPGRADE ===== */
+    :root {
+      --glass: rgba(17, 24, 43, .54);
+      --glass-border: rgba(255,255,255,.11);
+      --glow-cyan: rgba(85,246,255,.28);
+      --glow-purple: rgba(155,124,255,.24);
+    }
+
+    body {
+      background:
+        radial-gradient(circle at 8% 8%, rgba(85,246,255,.16), transparent 28%),
+        radial-gradient(circle at 92% 12%, rgba(255,98,199,.12), transparent 25%),
+        radial-gradient(circle at 50% 75%, rgba(155,124,255,.12), transparent 32%),
+        #050711;
+      background-attachment: fixed;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      width: 480px;
+      height: 480px;
+      left: -180px;
+      top: 35%;
+      border-radius: 50%;
+      background: rgba(85,246,255,.07);
+      filter: blur(100px);
+      pointer-events: none;
+      animation: orb 12s ease-in-out infinite alternate;
+      z-index: -1;
+    }
+
+    @keyframes orb {
+      from { transform: translate3d(0,0,0) scale(1); }
+      to { transform: translate3d(55vw,-10vh,0) scale(1.35); }
+    }
+
+    nav {
+      background: rgba(5,7,17,.56);
+      border-bottom: 1px solid rgba(255,255,255,.09);
+      box-shadow: 0 10px 35px rgba(0,0,0,.25);
+    }
+
+    .nav-inner {
+      padding-left: 14px;
+      padding-right: 14px;
+    }
+
+    .logo {
+      position: relative;
+      letter-spacing: 1px;
+    }
+
+    .logo::before {
+      content: "";
+      position: absolute;
+      inset: -9px -12px;
+      border: 1px solid rgba(85,246,255,.16);
+      border-radius: 12px;
+      background: rgba(85,246,255,.035);
+      z-index: -1;
+    }
+
+    .nav-links a {
+      padding: 9px 12px;
+      border: 1px solid transparent;
+      border-radius: 10px;
+    }
+
+    .nav-links a:hover {
+      background: rgba(255,255,255,.055);
+      border-color: rgba(85,246,255,.18);
+      box-shadow: 0 0 22px rgba(85,246,255,.08);
+    }
+
+    .hero {
+      isolation: isolate;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: min(760px, 90vw);
+      height: 760px;
+      border-radius: 50%;
+      background: conic-gradient(
+        from 0deg,
+        rgba(85,246,255,.10),
+        rgba(155,124,255,.06),
+        rgba(255,98,199,.08),
+        rgba(85,246,255,.10)
+      );
+      filter: blur(80px);
+      animation: spinGlow 16s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes spinGlow {
+      to { transform: rotate(360deg); }
+    }
+
+    .pixel-badge {
+      border-radius: 999px;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      background: rgba(85,246,255,.045);
+      box-shadow:
+        0 0 35px rgba(85,246,255,.08),
+        inset 0 0 20px rgba(255,255,255,.025);
+    }
+
+    h1 {
+      letter-spacing: -1px;
+      text-shadow:
+        0 0 30px rgba(85,246,255,.16),
+        5px 5px 0 #242c51;
+    }
+
+    h1 span {
+      background: linear-gradient(100deg, var(--cyan), #b5fbff 35%, var(--purple) 72%, var(--pink));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: none;
+      filter: drop-shadow(0 0 22px rgba(85,246,255,.2));
+    }
+
+    .btn {
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+
+    .btn::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -120%;
+      width: 70%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
+      transform: skewX(-20deg);
+      transition: left .6s ease;
+    }
+
+    .btn:hover::before { left: 140%; }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(85,246,255,.16), 4px 4px 0 #263d55;
+    }
+
+    .btn.alt {
+      background: rgba(255,255,255,.035);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+    }
+
+    .card {
+      position: relative;
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.075), rgba(255,255,255,.015) 42%),
+        var(--glass);
+      backdrop-filter: blur(22px) saturate(135%);
+      -webkit-backdrop-filter: blur(22px) saturate(135%);
+      box-shadow:
+        0 22px 60px rgba(0,0,0,.28),
+        inset 0 1px 0 rgba(255,255,255,.09),
+        inset 0 0 35px rgba(85,246,255,.018);
+      overflow: hidden;
+      transform-style: preserve-3d;
+      transition:
+        transform .35s cubic-bezier(.2,.8,.2,1),
+        border-color .35s,
+        box-shadow .35s;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at var(--mx, 50%) var(--my, 0%), rgba(255,255,255,.12), transparent 28%);
+      opacity: 0;
+      transition: opacity .3s;
+      pointer-events: none;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      left: 12%;
+      right: 12%;
+      top: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.5), transparent);
+      opacity: .35;
+    }
+
+    .card:hover {
+      border-color: rgba(85,246,255,.28);
+      transform: translateY(-8px);
+      box-shadow:
+        0 30px 80px rgba(0,0,0,.38),
+        0 0 35px rgba(85,246,255,.07),
+        inset 0 1px 0 rgba(255,255,255,.12);
+    }
+
+    .card:hover::before { opacity: 1; }
+
+    .project-number {
+      display: inline-block;
+      padding: 7px 10px;
+      border: 1px solid rgba(255,98,199,.2);
+      border-radius: 999px;
+      background: rgba(255,98,199,.05);
+    }
+
+    .skill {
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.035);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: .2s;
+    }
+
+    .skill:hover {
+      border-color: rgba(105,255,176,.35);
+      box-shadow: 0 0 20px rgba(105,255,176,.08);
+      transform: translateY(-2px);
+    }
+
+    .contact-box {
+      border-radius: 24px;
+      border: 1px solid rgba(155,124,255,.25);
+      background:
+        linear-gradient(145deg, rgba(155,124,255,.09), rgba(255,255,255,.025)),
+        rgba(12,15,30,.56);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      box-shadow:
+        0 30px 90px rgba(0,0,0,.35),
+        inset 0 1px 0 rgba(255,255,255,.08),
+        0 0 60px rgba(155,124,255,.07);
+    }
+
+    footer {
+      background: rgba(5,7,17,.3);
+      backdrop-filter: blur(10px);
+    }
+
+    /* Floating glass particles */
+    .particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 14px var(--cyan);
+      opacity: .55;
+      animation: floatParticle linear infinite;
+    }
+
+    @keyframes floatParticle {
+      from { transform: translateY(110vh) translateX(0); opacity: 0; }
+      15% { opacity: .55; }
+      85% { opacity: .55; }
+      to { transform: translateY(-15vh) translateX(90px); opacity: 0; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .75s ease, transform .75s ease;
+    }
+
+    .reveal.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="particles" aria-hidden="true"></div>
+  <nav>
+    <div class="container nav-inner">
+      <a class="logo" href="#home">YOUR.LOGO</a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="pixel-badge">ONLINE • 2026</div>
+        <h1>Hi, I'm <span>Your Name</span><span class="cursor"></span></h1>
+        <p>
+          A short sentence about yourself goes here.
+          For example: "I'm a student who loves technology, coding,
+          design, and building cool things."
+        </p>
+        <div class="buttons">
+          <a class="btn" href="#about">ENTER WORLD</a>
+          <a class="btn alt" href="#projects">VIEW PROJECTS</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <h2 class="section-title">About Me</h2>
+        <div class="grid">
+          <div class="card reveal">
+            <h3>WHO AM I?</h3>
+            <p>
+              Write a few lines about yourself here. Tell visitors who you
+              are, what you enjoy, and what you are currently learning.
+            </p>
+          </div>
+
+          <div class="card reveal">
+            <h3>MY GOAL</h3>
+            <p>
+              Add your goal here. It can be about coding, school, technology,
+              business, creativity, or anything you want to achieve.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container">
+        <h2 class="section-title">Skills</h2>
+        <div class="card reveal">
+          <h3>THINGS I LIKE TO DO</h3>
+          <div class="skills">
+            <span class="skill">HTML</span>
+            <span class="skill">CSS</span>
+            <span class="skill">JavaScript</span>
+            <span class="skill">Python</span>
+            <span class="skill">AI</span>
+            <span class="skill">Web Design</span>
+            <span class="skill">Your Skill</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <h2 class="section-title">Projects</h2>
+        <div class="grid">
+          <div class="card project reveal">
+            <div class="project-number">PROJECT_01</div>
+            <h3>Your Project</h3>
+            <p>
+              Describe your first project here. Add a link or screenshot later.
+            </p>
+          </div>
+
+          <div class="card project reveal">
+            <div class="project-number">PROJECT_02</div>
+            <h3>Your Project</h3>
+            <p>
+              Describe your second project here. Explain what you built and why.
+            </p>
+          </div>
+
+          <div class="card project reveal">
+            <div class="project-number">PROJECT_03</div>
+            <h3>Your Project</h3>
+            <p>
+              Add another project, experiment, website, game, or school project.
+            </p>
+          </div>
+
+          <div class="card project reveal">
+            <div class="project-number">PROJECT_04</div>
+            <h3>Coming Soon</h3>
+            <p>
+              Keep this card for something you want to build in the future.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="contact-box reveal">
+          <h2 class="section-title">Contact Me</h2>
+          <p>
+            Put your email, Telegram, Instagram, GitHub, or other social links here.
+          </p>
+          <div class="buttons">
+            <a class="btn" href="mailto:your@email.com">EMAIL ME</a>
+            <a class="btn alt" href="#" onclick="alert('Replace this with your social link!'); return false;">SOCIALS</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 Your Name • Built with ⚡ & pixels
+  </footer>
+
+  <script>
+    // Premium micro-interactions
+    const particleBox = document.querySelector(".particles");
+
+    for (let i = 0; i < 34; i++) {
+      const p = document.createElement("span");
+      p.className = "particle";
+      p.style.left = Math.random() * 100 + "%";
+      p.style.animationDuration = (8 + Math.random() * 15) + "s";
+      p.style.animationDelay = (-Math.random() * 18) + "s";
+      p.style.opacity = (0.15 + Math.random() * 0.5).toFixed(2);
+      p.style.transform = `scale(${0.5 + Math.random() * 1.5})`;
+      particleBox.appendChild(p);
+    }
+
+    // Reveal content as it enters the viewport.
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+
+    // Cursor-based glass highlight.
+    document.querySelectorAll(".card").forEach(card => {
+      card.addEventListener("pointermove", (e) => {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty("--mx", `${e.clientX - r.left}px`);
+        card.style.setProperty("--my", `${e.clientY - r.top}px`);
+      });
+    });
+
+    console.log("Welcome to your premium pixel world ⚡");
+  </script>
+</body>
+</html>
