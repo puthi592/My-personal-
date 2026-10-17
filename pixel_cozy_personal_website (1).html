@@ -1,763 +1,453 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Your Name — Personal Space</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
-
-    :root {
-      --bg: #070914;
-      --panel: #0e1222;
-      --panel2: #12182b;
-      --text: #f3f7ff;
-      --muted: #9ca8c7;
-      --cyan: #55f6ff;
-      --purple: #9b7cff;
-      --pink: #ff62c7;
-      --green: #69ffb0;
-      --border: #27304c;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background:
-        radial-gradient(circle at 15% 10%, rgba(85,246,255,.12), transparent 25%),
-        radial-gradient(circle at 85% 20%, rgba(155,124,255,.12), transparent 25%),
-        linear-gradient(180deg, #070914, #090b16 60%, #060711);
-      color: var(--text);
-      font-family: "VT323", monospace;
-      font-size: 22px;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      opacity: .14;
-      background-image:
-        linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
-      background-size: 24px 24px;
-      mask-image: linear-gradient(to bottom, black, transparent 85%);
-    }
-
-    a { color: inherit; text-decoration: none; }
-
-    .container {
-      width: min(1050px, calc(100% - 32px));
-      margin: auto;
-    }
-
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      backdrop-filter: blur(12px);
-      background: rgba(7,9,20,.78);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-inner {
-      min-height: 70px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .logo {
-      font-family: "Press Start 2P", monospace;
-      font-size: 14px;
-      color: var(--cyan);
-      text-shadow: 3px 3px 0 #26335c;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 18px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    .nav-links a {
-      color: var(--muted);
-      font-size: 19px;
-      transition: .2s;
-    }
-
-    .nav-links a:hover { color: var(--cyan); }
-
-    section { padding: 85px 0; }
-
-    .hero {
-      min-height: calc(100vh - 70px);
-      display: grid;
-      place-items: center;
-      text-align: center;
-      position: relative;
-    }
-
-    .pixel-badge {
-      display: inline-block;
-      border: 2px solid var(--cyan);
-      padding: 9px 13px;
-      color: var(--cyan);
-      background: rgba(85,246,255,.06);
-      box-shadow: 5px 5px 0 rgba(85,246,255,.16);
-      margin-bottom: 24px;
-    }
-
-    h1 {
-      font-family: "Press Start 2P", monospace;
-      font-size: clamp(30px, 6vw, 65px);
-      line-height: 1.35;
-      text-shadow: 5px 5px 0 #242c51;
-    }
-
-    h1 span {
-      color: var(--cyan);
-      text-shadow: 5px 5px 0 #174b55;
-    }
-
-    .hero p {
-      max-width: 650px;
-      margin: 25px auto;
-      color: var(--muted);
-      font-size: 27px;
-      line-height: 1.15;
-    }
-
-    .buttons {
-      display: flex;
-      gap: 14px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 28px;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 13px 18px;
-      border: 2px solid var(--cyan);
-      background: var(--cyan);
-      color: #061018;
-      font-family: "Press Start 2P", monospace;
-      font-size: 11px;
-      box-shadow: 5px 5px 0 #263d55;
-      transition: .18s;
-    }
-
-    .btn:hover {
-      transform: translate(3px, 3px);
-      box-shadow: 2px 2px 0 #263d55;
-    }
-
-    .btn.alt {
-      background: transparent;
-      color: var(--cyan);
-    }
-
-    .section-title {
-      font-family: "Press Start 2P", monospace;
-      font-size: clamp(19px, 3vw, 28px);
-      margin-bottom: 34px;
-    }
-
-    .section-title::before {
-      content: "> ";
-      color: var(--pink);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-
-    .card {
-      background: linear-gradient(145deg, rgba(18,24,43,.94), rgba(10,14,28,.94));
-      border: 2px solid var(--border);
-      padding: 25px;
-      box-shadow: 7px 7px 0 rgba(39,48,76,.5);
-      transition: .2s;
-    }
-
-    .card:hover {
-      border-color: var(--cyan);
-      transform: translateY(-4px);
-    }
-
-    .card h3 {
-      color: var(--cyan);
-      font-family: "Press Start 2P", monospace;
-      font-size: 14px;
-      line-height: 1.6;
-      margin-bottom: 14px;
-    }
-
-    .card p {
-      color: var(--muted);
-      line-height: 1.15;
-      font-size: 23px;
-    }
-
-    .skills {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 15px;
-    }
-
-    .skill {
-      border: 1px solid #394666;
-      padding: 7px 11px;
-      color: var(--green);
-      background: #0a1020;
-    }
-
-    .project {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .project::after {
-      content: "PIXEL";
-      position: absolute;
-      right: -8px;
-      bottom: -12px;
-      font-family: "Press Start 2P";
-      font-size: 38px;
-      color: rgba(255,255,255,.025);
-    }
-
-    .project-number {
-      color: var(--pink);
-      font-family: "Press Start 2P";
-      font-size: 11px;
-      margin-bottom: 18px;
-    }
-
-    .contact-box {
-      text-align: center;
-      padding: 40px 25px;
-      border: 2px solid var(--purple);
-      background: rgba(155,124,255,.06);
-      box-shadow: 8px 8px 0 rgba(155,124,255,.18);
-    }
-
-    .contact-box p {
-      color: var(--muted);
-      margin: 15px auto 25px;
-      max-width: 650px;
-    }
-
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 25px 0;
-      color: var(--muted);
-      text-align: center;
-      font-size: 18px;
-    }
-
-    .cursor {
-      display: inline-block;
-      width: 9px;
-      height: 22px;
-      background: var(--cyan);
-      vertical-align: middle;
-      animation: blink .8s steps(2) infinite;
-    }
-
-    @keyframes blink { 50% { opacity: 0; } }
-
-    @media (max-width: 700px) {
-      .nav-inner { padding: 12px 0; align-items: flex-start; flex-direction: column; }
-      .nav-links { justify-content: flex-start; }
-      section { padding: 65px 0; }
-      .grid { grid-template-columns: 1fr; }
-      .hero { min-height: 80vh; }
-      .hero p { font-size: 23px; }
-      .logo { font-size: 11px; }
-    }
-  
-    /* ===== PREMIUM GLASS UPGRADE ===== */
-    :root {
-      --glass: rgba(17, 24, 43, .54);
-      --glass-border: rgba(255,255,255,.11);
-      --glow-cyan: rgba(85,246,255,.28);
-      --glow-purple: rgba(155,124,255,.24);
-    }
-
-    body {
-      background:
-        radial-gradient(circle at 8% 8%, rgba(85,246,255,.16), transparent 28%),
-        radial-gradient(circle at 92% 12%, rgba(255,98,199,.12), transparent 25%),
-        radial-gradient(circle at 50% 75%, rgba(155,124,255,.12), transparent 32%),
-        #050711;
-      background-attachment: fixed;
-    }
-
-    body::after {
-      content: "";
-      position: fixed;
-      width: 480px;
-      height: 480px;
-      left: -180px;
-      top: 35%;
-      border-radius: 50%;
-      background: rgba(85,246,255,.07);
-      filter: blur(100px);
-      pointer-events: none;
-      animation: orb 12s ease-in-out infinite alternate;
-      z-index: -1;
-    }
-
-    @keyframes orb {
-      from { transform: translate3d(0,0,0) scale(1); }
-      to { transform: translate3d(55vw,-10vh,0) scale(1.35); }
-    }
-
-    nav {
-      background: rgba(5,7,17,.56);
-      border-bottom: 1px solid rgba(255,255,255,.09);
-      box-shadow: 0 10px 35px rgba(0,0,0,.25);
-    }
-
-    .nav-inner {
-      padding-left: 14px;
-      padding-right: 14px;
-    }
-
-    .logo {
-      position: relative;
-      letter-spacing: 1px;
-    }
-
-    .logo::before {
-      content: "";
-      position: absolute;
-      inset: -9px -12px;
-      border: 1px solid rgba(85,246,255,.16);
-      border-radius: 12px;
-      background: rgba(85,246,255,.035);
-      z-index: -1;
-    }
-
-    .nav-links a {
-      padding: 9px 12px;
-      border: 1px solid transparent;
-      border-radius: 10px;
-    }
-
-    .nav-links a:hover {
-      background: rgba(255,255,255,.055);
-      border-color: rgba(85,246,255,.18);
-      box-shadow: 0 0 22px rgba(85,246,255,.08);
-    }
-
-    .hero {
-      isolation: isolate;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      width: min(760px, 90vw);
-      height: 760px;
-      border-radius: 50%;
-      background: conic-gradient(
-        from 0deg,
-        rgba(85,246,255,.10),
-        rgba(155,124,255,.06),
-        rgba(255,98,199,.08),
-        rgba(85,246,255,.10)
-      );
-      filter: blur(80px);
-      animation: spinGlow 16s linear infinite;
-      z-index: -1;
-    }
-
-    @keyframes spinGlow {
-      to { transform: rotate(360deg); }
-    }
-
-    .pixel-badge {
-      border-radius: 999px;
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      background: rgba(85,246,255,.045);
-      box-shadow:
-        0 0 35px rgba(85,246,255,.08),
-        inset 0 0 20px rgba(255,255,255,.025);
-    }
-
-    h1 {
-      letter-spacing: -1px;
-      text-shadow:
-        0 0 30px rgba(85,246,255,.16),
-        5px 5px 0 #242c51;
-    }
-
-    h1 span {
-      background: linear-gradient(100deg, var(--cyan), #b5fbff 35%, var(--purple) 72%, var(--pink));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-shadow: none;
-      filter: drop-shadow(0 0 22px rgba(85,246,255,.2));
-    }
-
-    .btn {
-      border-radius: 12px;
-      position: relative;
-      overflow: hidden;
-      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
-    }
-
-    .btn::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -120%;
-      width: 70%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
-      transform: skewX(-20deg);
-      transition: left .6s ease;
-    }
-
-    .btn:hover::before { left: 140%; }
-
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 35px rgba(85,246,255,.16), 4px 4px 0 #263d55;
-    }
-
-    .btn.alt {
-      background: rgba(255,255,255,.035);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-    }
-
-    .card {
-      position: relative;
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      background:
-        linear-gradient(145deg, rgba(255,255,255,.075), rgba(255,255,255,.015) 42%),
-        var(--glass);
-      backdrop-filter: blur(22px) saturate(135%);
-      -webkit-backdrop-filter: blur(22px) saturate(135%);
-      box-shadow:
-        0 22px 60px rgba(0,0,0,.28),
-        inset 0 1px 0 rgba(255,255,255,.09),
-        inset 0 0 35px rgba(85,246,255,.018);
-      overflow: hidden;
-      transform-style: preserve-3d;
-      transition:
-        transform .35s cubic-bezier(.2,.8,.2,1),
-        border-color .35s,
-        box-shadow .35s;
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at var(--mx, 50%) var(--my, 0%), rgba(255,255,255,.12), transparent 28%);
-      opacity: 0;
-      transition: opacity .3s;
-      pointer-events: none;
-    }
-
-    .card::after {
-      content: "";
-      position: absolute;
-      left: 12%;
-      right: 12%;
-      top: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.5), transparent);
-      opacity: .35;
-    }
-
-    .card:hover {
-      border-color: rgba(85,246,255,.28);
-      transform: translateY(-8px);
-      box-shadow:
-        0 30px 80px rgba(0,0,0,.38),
-        0 0 35px rgba(85,246,255,.07),
-        inset 0 1px 0 rgba(255,255,255,.12);
-    }
-
-    .card:hover::before { opacity: 1; }
-
-    .project-number {
-      display: inline-block;
-      padding: 7px 10px;
-      border: 1px solid rgba(255,98,199,.2);
-      border-radius: 999px;
-      background: rgba(255,98,199,.05);
-    }
-
-    .skill {
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.035);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      transition: .2s;
-    }
-
-    .skill:hover {
-      border-color: rgba(105,255,176,.35);
-      box-shadow: 0 0 20px rgba(105,255,176,.08);
-      transform: translateY(-2px);
-    }
-
-    .contact-box {
-      border-radius: 24px;
-      border: 1px solid rgba(155,124,255,.25);
-      background:
-        linear-gradient(145deg, rgba(155,124,255,.09), rgba(255,255,255,.025)),
-        rgba(12,15,30,.56);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      box-shadow:
-        0 30px 90px rgba(0,0,0,.35),
-        inset 0 1px 0 rgba(255,255,255,.08),
-        0 0 60px rgba(155,124,255,.07);
-    }
-
-    footer {
-      background: rgba(5,7,17,.3);
-      backdrop-filter: blur(10px);
-    }
-
-    /* Floating glass particles */
-    .particles {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: -1;
-    }
-
-    .particle {
-      position: absolute;
-      width: 3px;
-      height: 3px;
-      border-radius: 50%;
-      background: var(--cyan);
-      box-shadow: 0 0 14px var(--cyan);
-      opacity: .55;
-      animation: floatParticle linear infinite;
-    }
-
-    @keyframes floatParticle {
-      from { transform: translateY(110vh) translateX(0); opacity: 0; }
-      15% { opacity: .55; }
-      85% { opacity: .55; }
-      to { transform: translateY(-15vh) translateX(90px); opacity: 0; }
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(22px);
-      transition: opacity .75s ease, transform .75s ease;
-    }
-
-    .reveal.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
-        transition-duration: .01ms !important;
-      }
-    }
-
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Puthi | Personal Website</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap');
+
+:root {
+  --cyan: #63f5e6;
+  --purple: #a78bfa;
+  --pink: #ff85c8;
+  --bg: #080b16;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  color: white;
+  background:
+    radial-gradient(circle at 15% 15%, #35235b66, transparent 35%),
+    radial-gradient(circle at 85% 45%, #075b6650, transparent 35%),
+    var(--bg);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(#ffffff09 1px, transparent 1px),
+    linear-gradient(90deg, #ffffff09 1px, transparent 1px);
+  background-size: 35px 35px;
+}
+
+nav {
+  position: sticky;
+  top: 15px;
+  z-index: 10;
+  width: min(1100px, 92%);
+  margin: 15px auto;
+  padding: 15px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ffffff20;
+  border-radius: 18px;
+  background: #111629b8;
+  backdrop-filter: blur(22px);
+  box-shadow: 0 10px 35px #0003;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.logo span { color: var(--cyan); }
+
+nav a {
+  color: #c4c9df;
+  text-decoration: none;
+  margin-left: 20px;
+  font-size: 14px;
+}
+
+nav a:hover { color: var(--cyan); }
+
+.hero {
+  width: min(1100px, 90%);
+  min-height: 78vh;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  align-items: center;
+  gap: 45px;
+  padding: 55px 0;
+}
+
+.tag {
+  color: var(--cyan);
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 20px 0;
+  font-size: clamp(42px, 6vw, 76px);
+  line-height: 1.05;
+  letter-spacing: -3px;
+}
+
+.gradient {
+  background: linear-gradient(90deg, var(--cyan), var(--purple), var(--pink));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.description {
+  max-width: 500px;
+  color: #a9b2d0;
+  line-height: 1.9;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 13px 19px;
+  border-radius: 12px;
+  border: 1px solid #ffffff25;
+  color: white;
+  text-decoration: none;
+  background: #ffffff08;
+  transition: .25s;
+}
+
+.btn.primary {
+  color: #071218;
+  font-weight: 700;
+  border: none;
+  background: linear-gradient(110deg, var(--cyan), var(--purple));
+}
+
+.btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 25px #63f5e633;
+}
+
+.visual {
+  min-height: 370px;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+.orbit {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border: 1px solid #a78bfa66;
+  border-radius: 50%;
+  animation: spin 16s linear infinite;
+}
+
+.orbit::before {
+  content: "";
+  position: absolute;
+  top: 30px;
+  left: 35px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 22px var(--cyan);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.profile {
+  position: relative;
+  width: min(300px, 85%);
+  padding: 20px;
+  border: 1px solid #ffffff30;
+  border-radius: 24px;
+  background: linear-gradient(140deg, #252c4dcc, #111526dd);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 25px 80px #0006, 0 0 35px #a78bfa18;
+  animation: float 5s ease-in-out infinite;
+}
+
+@keyframes float {
+  50% { transform: translateY(-10px); }
+}
+
+.avatar {
+  height: 200px;
+  border-radius: 15px;
+  background: radial-gradient(circle, #63f5e633, transparent 50%),
+              linear-gradient(135deg, #25264c, #152b3c, #372346);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.pixel {
+  width: 95px;
+  height: 95px;
+  background: linear-gradient(135deg, var(--cyan), var(--purple));
+  transform: rotate(45deg);
+  border-radius: 20px;
+  box-shadow: 0 0 60px #63f5e655;
+}
+
+.profile h3 { margin-top: 17px; }
+.profile p { color: #9da8c8; margin-top: 5px; font-size: 13px; }
+
+section.content {
+  width: min(1100px, 90%);
+  margin: 70px auto;
+}
+
+.section-title {
+  font-size: clamp(30px, 4vw, 44px);
+  margin: 12px 0 25px;
+}
+
+.glass {
+  background: #141a2db8;
+  border: 1px solid #ffffff1c;
+  border-radius: 20px;
+  backdrop-filter: blur(18px);
+  box-shadow: inset 0 1px #ffffff08;
+}
+
+.about {
+  padding: 28px;
+  color: #b6bfd9;
+  line-height: 1.9;
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.skills span {
+  padding: 8px 12px;
+  border: 1px solid #ffffff20;
+  border-radius: 9px;
+  color: var(--cyan);
+  font-size: 12px;
+}
+
+.projects {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.project {
+  padding: 22px;
+  transition: .3s;
+}
+
+.project:hover {
+  transform: translateY(-7px);
+  border-color: #63f5e677;
+  box-shadow: 0 15px 40px #0003;
+}
+
+.project-icon {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.project h3 { margin-bottom: 10px; }
+
+.project p {
+  color: #a9b2d0;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.contact {
+  padding: 30px;
+  text-align: center;
+}
+
+.contact p {
+  color: #a9b2d0;
+  margin: 15px 0 22px;
+  line-height: 1.8;
+}
+
+footer {
+  text-align: center;
+  padding: 35px 15px;
+  color: #8993b1;
+  font-size: 12px;
+  border-top: 1px solid #ffffff12;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(25px);
+  transition: opacity .7s, transform .7s;
+}
+
+.reveal.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 750px) {
+  nav { padding: 13px; }
+  nav a { margin-left: 10px; font-size: 12px; }
+  .hero { grid-template-columns: 1fr; padding-top: 50px; }
+  .visual { min-height: 350px; }
+  .projects { grid-template-columns: 1fr; }
+  h1 { letter-spacing: -2px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}
+</style>
 </head>
 
 <body>
-  <div class="particles" aria-hidden="true"></div>
-  <nav>
-    <div class="container nav-inner">
-      <a class="logo" href="#home">YOUR.LOGO</a>
-      <div class="nav-links">
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
+
+<nav>
+  <div class="logo">Puthi<span>.dev</span></div>
+  <div>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<main>
+  <header class="hero">
+    <div>
+      <div class="tag">✦ Hello, world! I'm Puthi</div>
+      <h1>Creating my<br>own <span class="gradient">universe.</span></h1>
+      <p class="description">
+        A curious creator exploring technology, AI, and digital design.
+        Learning every day and turning crazy ideas into real projects.
+      </p>
+
+      <div class="buttons">
+        <a class="btn primary" href="#projects">Explore my work ↗</a>
+        <a class="btn" href="#about">Discover more ↓</a>
       </div>
     </div>
-  </nav>
 
-  <main>
-    <section class="hero" id="home">
-      <div class="container">
-        <div class="pixel-badge">ONLINE • 2026</div>
-        <h1>Halo
-          <span></span><span class="cursor"></span></h1>
-        <p>
-          HI MY NAME IS  PUTHI I AM 16 YEAR OLD THAT STUDYING AT TEPRNOM HIGHSCHOOL IT YEAR-2 I LOVE LEARNIG ABOUT TECHNOLOGY,SPACE/HISTORY I LIKE THESE 3 THING LIKE MY LIFE
-        </p>
-        <div class="buttons">
-          <a class="btn" href="#about">ENTER WORLD</a>
-          <a class="btn alt" href="#projects">VIEW PROJECTS</a>
-        </div>
+    <div class="visual">
+      <div class="orbit"></div>
+      <div class="profile">
+        <div class="avatar"><div class="pixel"></div></div>
+        <h3>👾 Puthi</h3>
+        <p>Developer in progress · Cambodia 🇰🇭</p>
       </div>
-    </section>
+    </div>
+  </header>
 
-    <section id="about">
-      <div class="container">
-        <h2 class="section-title">About Me</h2>
-        <div class="grid">
-          <div class="card reveal">
-            <h3>WHO AM I?</h3>
-            <p>
-             HI MY NAME IS  PUTHI I AM 16 YEAR OLD THAT STUDYING AT TEPRNOM HIGHSCHOOL IT YEAR-2 I LOVE LEARNIG ABOUT TECHNOLOGY,SPACE/HISTORY I LIKE THESE 3 THING LIKE MY LIFE I LOVE ENJOY REVIEIEW/STUDY  TECHNOLOGY THING HISTORY AROUND THE WORLD AND​​ AND THEORY  ABOUT THE SPACE BLACKHOLD,GALAXY,GALATIX 
-            </p>
-          </div>
+  <section class="content reveal" id="about">
+    <div class="tag">01 / About me</div>
+    <h2 class="section-title">A mind full of <span class="gradient">ideas.</span></h2>
 
-          <div class="card reveal">
-            <h3>MY GOAL</h3>
-            <p>
-             IN  THE FUTURE I WANT TO OPEN ONE SEVICE CENTRE ABOUT SELL/BUY TECHNOLOGY THING LIKE CAMERA LAPTOP PHONE OR MORE I A HAVE THE CHANNEL THAT REVIEW ABOUT THAT ALL THING
-            </p>
-          </div>
-        </div>
+    <div class="glass about">
+      Hey! I'm Puthi. I'm interested in coding, AI, computer hardware,
+      and creating beautiful websites. This is my personal corner of the
+      internet where I can share my journey, experiments, and future projects.
+
+      <div class="skills">
+        <span>HTML</span>
+        <span>CSS</span>
+        <span>JavaScript</span>
+        <span>AI Experiments</span>
+        <span>Tech & Hardware</span>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="skills">
-      <div class="container">
-        <h2 class="section-title">Skills</h2>
-        <div class="card reveal">
-          <h3>THINGS I LIKE TO DO</h3>
-          <div class="skills">
-            <span class="skill">HTML</span>
-            <span class="skill">CSS</span>
-            <span class="skill">JavaScript</span>
-            <span class="skill">Python</span>
-            <span class="skill">AI</span>
-            <span class="skill">Web Design</span>
-            <span class="skill">Your Skill</span>
-          </div>
-        </div>
-      </div>
-    </section>
+  <section class="content reveal" id="projects">
+    <div class="tag">02 / My creations</div>
+    <h2 class="section-title">Featured <span class="gradient">projects.</span></h2>
 
-    <section id="projects">
-      <div class="container">
-        <h2 class="section-title">Projects</h2>
-        <div class="grid">
-          <div class="card project reveal">
-            <div class="project-number">PROJECT_01</div>
-            <h3>Your Project</h3>
-            <p>
-              Describe your first project here. Add a link or screenshot later.
-            </p>
-          </div>
+    <div class="projects">
+      <article class="glass project">
+        <div class="project-icon">🤖</div>
+        <h3>Puthi AI</h3>
+        <p>My own AI assistant project for chatting, learning, and exploring creative ideas.</p>
+      </article>
 
-          <div class="card project reveal">
-            <div class="project-number">PROJECT_02</div>
-            <h3>Your Project</h3>
-            <p>
-              Describe your second project here. Explain what you built and why.
-            </p>
-          </div>
+      <article class="glass project">
+        <div class="project-icon">🌌</div>
+        <h3>My Portfolio</h3>
+        <p>A futuristic personal website with glass effects, neon colors, and smooth animations.</p>
+      </article>
 
-          <div class="card project reveal">
-            <div class="project-number">PROJECT_03</div>
-            <h3>Your Project</h3>
-            <p>
-              Add another project, experiment, website, game, or school project.
-            </p>
-          </div>
+      <article class="glass project">
+        <div class="project-icon">🚀</div>
+        <h3>Coming Soon</h3>
+        <p>A space for my next experiment. Something new is always being built.</p>
+      </article>
+    </div>
+  </section>
 
-          <div class="card project reveal">
-            <div class="project-number">PROJECT_04</div>
-            <h3>Coming Soon</h3>
-            <p>
-              Keep this card for something you want to build in the future.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
+  <section class="content reveal" id="contact">
+    <div class="glass contact">
+      <div class="tag">03 / Contact</div>
+      <h2 class="section-title">Let's create <span class="gradient">something cool.</span></h2>
+      <p>Want to connect or talk about technology? Send me a message.</p>
+      <a class="btn primary" href="mailto:hello@example.com">Contact me ↗</a>
+    </div>
+  </section>
+</main>
 
-    <section id="contact">
-      <div class="container">
-        <div class="contact-box reveal">
-          <h2 class="section-title">Contact Me</h2>
-          <p>
-            Put your email, Telegram, Instagram, GitHub, or other social links here.
-          </p>
-          <div class="buttons">
-            <a class="btn" href="mailto:your@email.com">EMAIL ME</a>
-            <a class="btn alt" href="#" onclick="alert('Replace this with your social link!'); return false;">SOCIALS</a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+<footer>
+  © <span id="year"></span> Puthi.dev · Made with curiosity 💙
+</footer>
 
-  <footer>
-    © 2026 Your Name • Built with ⚡ & pixels
-  </footer>
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
 
-  <script>
-    // Premium micro-interactions
-    const particleBox = document.querySelector(".particles");
-
-    for (let i = 0; i < 34; i++) {
-      const p = document.createElement("span");
-      p.className = "particle";
-      p.style.left = Math.random() * 100 + "%";
-      p.style.animationDuration = (8 + Math.random() * 15) + "s";
-      p.style.animationDelay = (-Math.random() * 18) + "s";
-      p.style.opacity = (0.15 + Math.random() * 0.5).toFixed(2);
-      p.style.transform = `scale(${0.5 + Math.random() * 1.5})`;
-      particleBox.appendChild(p);
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("show");
+      observer.unobserve(entry.target);
     }
+  });
+}, { threshold: 0.12 });
 
-    // Reveal content as it enters the viewport.
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("show");
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12 });
+document.querySelectorAll(".reveal").forEach(section => {
+  observer.observe(section);
+});
+</script>
 
-    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
-
-    // Cursor-based glass highlight.
-    document.querySelectorAll(".card").forEach(card => {
-      card.addEventListener("pointermove", (e) => {
-        const r = card.getBoundingClientRect();
-        card.style.setProperty("--mx", `${e.clientX - r.left}px`);
-        card.style.setProperty("--my", `${e.clientY - r.top}px`);
-      });
-    });
-
-    console.log("Welcome to your premium pixel world ⚡");
-  </script>
 </body>
 </html>
+```
